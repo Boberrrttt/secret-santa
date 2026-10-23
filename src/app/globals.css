@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --canvas: #090909;
+  --surface: #141414;
+  --lift: #1c1c1c;
+  --ink: #ffffff;
+  --mute: #999999;
+  --link: #0099ff;
+  --hairline: #262626;
+  --line: #1a1a1a;
+  --coral: #ff5577;
+  --success: #22c55e;
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-lift: var(--lift);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-link: var(--link);
+  --color-hairline: var(--hairline);
+  --color-line: var(--line);
+  --color-coral: var(--coral);
+  --color-success: var(--success);
+  --font-sans: var(--font-inter), "Inter", sans-serif;
+  --font-display: var(--font-geist), "Geist", "Inter", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  accent-color: var(--link);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-geist), "Geist", "Inter", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  scroll-margin-top: 5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-inter), "Inter", sans-serif;
+  font-feature-settings: "cv01" on, "cv05" on, "cv09" on, "cv11" on, "ss03" on, "ss07" on, "dlig" on;
+  letter-spacing: -0.01em;
+  caret-color: var(--link);
+  scrollbar-color: var(--hairline) var(--canvas);
+}
+
+input,
+textarea,
+select {
+  color-scheme: dark;
+}
+
+::selection {
+  background: var(--link);
+  color: #000000;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.enter {
+  animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@supports (animation-timeline: view()) {
+  .rise-in {
+    animation: rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 28%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .rise-in {
+    animation: none;
+  }
+
+  a,
+  button {
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .spotlight {
+    background: #2c1870;
+  }
 }
