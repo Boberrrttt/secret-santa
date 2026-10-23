@@ -1,34 +1,36 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { SiteFooter, SiteHeader } from "@/shared/components/site-chrome";
 
 const focus =
-  "focus-visible:outline-none focus-visible:shadow-[0_0_0_1px_#0099ff,0_0_0_4px_rgba(0,153,255,0.15)]";
+  "focus-visible:outline-none focus-visible:shadow-[0_0_0_2px_#f8c544,0_0_0_5px_rgba(248,197,68,0.2)]";
 
 const press =
-  "inline-flex h-11 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-[15px] text-sm font-medium leading-none tracking-[-0.01em] transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100";
+  "inline-flex h-11 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-5 text-sm font-semibold leading-none tracking-[-0.01em] transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100";
 
-export const inkButtonClass = `${press} bg-white text-black hover:bg-[#e8e8e8] ${focus}`;
-export const ghostButtonClass = `${press} bg-surface text-ink hover:bg-lift ${focus}`;
-export const dangerButtonClass = `${press} bg-surface text-coral hover:bg-lift ${focus}`;
+export const inkButtonClass = `${press} bg-gold text-[#2a1a00] shadow-[0_8px_24px_rgba(248,197,68,0.25)] hover:bg-[#ffd25e] ${focus}`;
+export const ghostButtonClass = `${press} border border-white/15 bg-white/5 text-ink hover:bg-white/10 ${focus}`;
+export const dangerButtonClass = `${press} border border-coral/30 bg-coral/10 text-coral hover:bg-coral/20 ${focus}`;
 
 export const chipClass =
-  "inline-flex h-10 items-center rounded-full bg-canvas px-3.5 text-sm font-medium text-mute";
+  "inline-flex h-10 items-center rounded-full border border-white/10 bg-white/5 px-3.5 text-sm font-medium text-mute";
 export const chipActiveClass =
-  "inline-flex h-10 items-center rounded-full bg-lift px-3.5 text-sm font-medium text-ink";
+  "inline-flex h-10 items-center rounded-full border border-gold/40 bg-gold/15 px-3.5 text-sm font-semibold text-gold";
 
 export const textLinkClass = `rounded-sm text-sm font-medium text-link ${focus}`;
 
 export const labelClass = "block text-sm font-medium leading-[1.4] tracking-[-0.01em] text-ink";
 export const hintClass = "mt-1 block text-[13px] font-medium leading-[1.2] tracking-[-0.01em] text-mute";
 export const errorTextClass = "text-sm font-medium text-coral";
-export const cardClass = "rounded-[20px] bg-surface p-6";
+export const cardClass =
+  "rounded-3xl border border-white/10 bg-surface/80 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.4)] backdrop-blur-md md:p-8";
 export const panelClass = `space-y-4 ${cardClass}`;
 export const pageTitleClass =
-  "text-[clamp(2rem,4vw,2.75rem)] leading-[1.08] tracking-[-0.045em] text-ink";
+  "font-fancy! text-[clamp(2rem,4vw,2.75rem)] font-bold! leading-[1.1] tracking-normal! text-ink";
 export const blockTitleClass = "text-[2rem] leading-[1.13] tracking-[-0.031em] text-ink";
 
 export const fieldClass =
-  "mt-2 min-h-12 w-full rounded-[10px] border border-hairline bg-lift px-3.5 text-[15px] leading-[1.3] tracking-[-0.01em] text-ink outline-none placeholder:text-mute focus:border-link focus:shadow-[0_0_0_1px_rgba(0,153,255,0.15)]";
+  "mt-2 min-h-12 w-full rounded-[10px] border border-hairline bg-lift px-3.5 text-[15px] leading-[1.3] tracking-[-0.01em] text-ink outline-none placeholder:text-mute/70 focus:border-gold focus:shadow-[0_0_0_3px_rgba(248,197,68,0.15)]";
 
 type ActionButtonProps = {
   children: ReactNode;
@@ -37,41 +39,24 @@ type ActionButtonProps = {
   onClick?: () => void;
 };
 
-export function PageShell({ children, flush = false }: { children: ReactNode; flush?: boolean }) {
+export function PageShell({ children, active }: { children: ReactNode; active?: string }) {
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-canvas">
-      <header className="sticky top-0 z-20 border-b border-line bg-canvas">
-        <div className="mx-auto flex h-14 w-full max-w-[1199px] items-center justify-between gap-3 px-4 md:px-8">
-          <Link href="/" className={`font-display text-[15px] font-medium tracking-[-0.04em] text-ink ${focus}`}>
-            Secret Santa
-          </Link>
-          <nav className="flex items-center gap-2">
-            <Link href="/recover" className={ghostButtonClass}>
-              Send links
-            </Link>
-            <Link href="/create" className={inkButtonClass}>
-              Create party
-            </Link>
-          </nav>
-        </div>
-      </header>
-      <main className={flush ? "w-full flex-1" : "mx-auto w-full max-w-[1199px] flex-1 px-4 py-16 md:px-8"}>
-        {children}
-      </main>
-      <footer className="bg-canvas">
-        <div className="mx-auto flex w-full max-w-[1199px] items-center px-8 py-16">
-          <p className="text-[13px] font-medium leading-[1.2] tracking-[-0.01em] text-mute">
-            Private links. No account.
-          </p>
-        </div>
-      </footer>
+    <div className="relative isolate flex min-h-[100dvh] flex-col overflow-x-clip bg-[#010f39]">
+      {/* Faded hero art keeps inner pages in the same winter scene as the home page */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 -z-10 h-[38rem] bg-[url(/santa/hero.png)] bg-cover bg-center opacity-45 [mask-image:linear-gradient(#000_25%,transparent)]"
+      />
+      <SiteHeader active={active} />
+      <main className="mx-auto w-full max-w-[1199px] flex-1 px-4 pt-8 pb-16 md:px-8 md:pt-12">{children}</main>
+      <SiteFooter />
     </div>
   );
 }
 
 export function Notice({ message }: { message?: string }) {
   if (!message) return null;
-  return <p className="rounded-[10px] bg-lift px-4 py-3 text-sm text-ink">{message}</p>;
+  return <p className="rounded-xl border border-mint/30 bg-mint/10 px-4 py-3 text-sm text-ink">{message}</p>;
 }
 
 export function MetaLine({ parts }: { parts: Array<string | null | undefined | false> }) {

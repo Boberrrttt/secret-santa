@@ -3,7 +3,7 @@ import { PageShell } from "@/shared/components/page-shell";
 
 export default function RecoverPage() {
   return (
-    <PageShell>
+    <PageShell active="/recover">
       <RecoverScreen />
     </PageShell>
   );

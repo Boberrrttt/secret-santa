@@ -64,9 +64,9 @@ export function GuestScreen({
     <div className="enter mx-auto max-w-xl space-y-6">
       <MetaLine parts={[guest.partyName, guest.eventDate, guest.budget ? `Budget ${guest.budget}` : ""]} />
       {drawn ? (
-        <div className="spotlight flex min-h-48 flex-col justify-end rounded-[30px] bg-[linear-gradient(165deg,#8b6cf8_0%,#6a4cf5_46%,#2c1870_100%)] px-8 py-8 text-white">
+        <div className="spotlight flex min-h-48 flex-col justify-end rounded-[30px] bg-[linear-gradient(165deg,#ff8a5c_0%,#e2502e_40%,#1f2f6e_100%)] shadow-[0_24px_60px_rgba(226,80,46,0.3)] px-8 py-8 text-white">
           <p className="text-[13px] font-medium leading-[1.2]">Your match</p>
-          <h1 className="mt-3 text-[clamp(2.5rem,6vw,3.875rem)] leading-[1.05] tracking-[-0.05em]">
+          <h1 className="mt-3 font-fancy! text-[clamp(2.5rem,6vw,3.875rem)] font-bold! leading-[1.05] tracking-normal!">
             {guest.recipientName}
           </h1>
         </div>
